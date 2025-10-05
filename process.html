@@ -1,0 +1,1920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Co-Designing Across the Gaps</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0A0E27;
+            --accent: #0011ff;
+            --secondary: #00ffee;
+            --tertiary: #FFE66D;
+            --text-dark: #1a1a2e;
+            --text-light: #686D76;
+            --bg-light: #FAFAFA;
+            --bg-gradient: #1e293b;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: white;
+            overflow-x: hidden;
+        }
+
+        /* Loading Screen */
+        loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeOut 0.5s ease-out 1.5s forwards;
+        }
+
+        .loader-text {
+            color: white;
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: 0.5rem;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 3rem;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: slideDown 0.8s ease-out 1.8s forwards;
+        }
+
+        .nav-container.scrolled {
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        @keyframes slideDown {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(135deg, #1e293b 0%, #000000 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('Asset 20@3x100.png') center/cover no-repeat;
+            opacity: 0.3;
+            background-size: 60%;
+            animation: floatUp 20s ease-in-out infinite alternate;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 0.8s ease-out 2s both;
+        }
+
+        /* Keyframes: moves background image upward slowly */
+        @keyframes floatUp {
+            50% {
+                background-position: center bottom;
+            }
+            100% {
+                background-position: center top;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: white;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease-out 2.2s both;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            animation: fadeInUp 0.8s ease-out 2.4s both;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            gap: 1rem;
+            animation: fadeInUp 0.8s ease-out 2.6s both;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Floating shapes */
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent);
+            border-radius: 50%;
+            top: 10%;
+            left: -150px;
+        }
+
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            background: var(--secondary);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            bottom: 10%;
+            right: -100px;
+            animation-delay: -5s;
+        }
+
+        .shape-3 {
+            width: 150px;
+            height: 150px;
+            background: var(--tertiary);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            top: 50%;
+            right: 10%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator::before {
+            content: '';
+            display: block;
+            width: 30px;
+            height: 50px;
+            border: 2px solid white;
+            border-radius: 25px;
+            position: relative;
+        }
+
+        .scroll-indicator::after {
+            content: '';
+            display: block;
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: scroll 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        @keyframes scroll {
+            0% { top: 10px; opacity: 1; }
+            100% { top: 30px; opacity: 0; }
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 6rem 0;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section:nth-child(even) {
+            background: var(--bg-light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 3rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Overview Grid */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .overview-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .overview-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--bg-gradient);
+        }
+
+        .overview-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .overview-card-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--bg-gradient);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .overview-card h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .overview-card p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* View more */
+        .conference-info .view-more {
+        display: block;
+        text-align: right;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 4rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            flex: 1;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            text-align: right;
+        }
+
+        .timeline-dot {
+            width: 30px;
+            height: 30px;
+            background: white;
+            border: 4px solid var(--accent);
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .timeline-year {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-desc {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        /* Research Question */
+        .research-question {
+            background: var(--primary);
+            color: white;
+            padding: 8rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .research-question::before {
+            content: '"';
+            position: absolute;
+            top: -50px;
+            left: 50px;
+            font-size: 300px;
+            opacity: 0.05;
+            font-family: Georgia, serif;
+        }
+
+        .research-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .research-label {
+            color: var(--secondary);
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .research-text {
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            line-height: 1.5;
+            font-weight: 300;
+        }
+
+        /* Process Cards */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .process-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .process-card::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-gradient);
+            transition: top 0.3s ease;
+            z-index: 0;
+        }
+
+        .process-card:hover::before {
+            top: 0;
+        }
+
+        .process-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .process-card:hover * {
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .process-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            background: var(--bg-light);
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .process-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .process-desc {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Phase Details */
+        .phase-section {
+            padding: 6rem 0;
+            scroll-margin-top: 80px;
+        }
+
+        .phase-header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .phase-number {
+            font-size: 5rem;
+            font-weight: 900;
+            color: transparent;
+            -webkit-text-stroke: 2px var(--accent);
+            line-height: 1;
+        }
+
+        .phase-title-block h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .phase-subtitle {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        /* Conferences Section */
+        .conference-section {
+            background: var(--bg-light);
+            padding: 6rem 0;
+        }
+
+        .conference-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .conference-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            border: 1px solid var(--border-color);
+        }
+
+        .conference-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .conference-date {
+            background: linear-gradient(135deg, #000000 0%, #180569 100%);
+            color: white;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 120px;
+        }
+
+        .conference-month {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.9;
+        }
+
+        .conference-day {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1;
+            margin: 0.5rem 0;
+        }
+
+        .conference-year {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .conference-info {
+            padding: 2rem;
+            flex: 1;
+        }
+
+        .conference-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .conference-location {
+            color: var(--accent);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .conference-type {
+            display: inline-block;
+            background: rgba(78, 205, 196, 0.1);
+            color: var(--accent);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .conference-desc {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Quote Box */
+        .quote-box {
+            background: linear-gradient(135deg, #000000 0%, #180569 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            margin: 3rem 0;
+            position: relative;
+            font-size: 1.3rem;
+            font-style: italic;
+            text-align: center;
+        }
+
+        .quote-box::before,
+        .quote-box::after {
+            content: '"';
+            position: absolute;
+            font-size: 4rem;
+            opacity: 0.3;
+            font-family: Georgia, serif;
+        }
+
+        .quote-box::before {
+            top: 10px;
+            left: 20px;
+        }
+
+        .quote-box::after {
+            bottom: 10px;
+            right: 20px;
+            transform: rotate(180deg);
+        }
+
+        /* Interactive Elements */
+        .interactive-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .interactive-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+        }
+
+        .tag {
+            padding: 0.5rem 1rem;
+            background: var(--bg-light);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            background: var(--accent);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* Participant Table */
+        .participant-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 2rem 0;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .participant-table th,
+        .participant-table td {
+            padding: 1.2rem;
+            text-align: left;
+        }
+
+        .participant-table th {
+            background: var(--bg-gradient);
+            color: white;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .participant-table tr:nth-child(even) {
+            background: var(--bg-light);
+        }
+
+        .participant-table td {
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+
+        /* Co-design Cards */
+        .codesign-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .codesign-card {
+            background: linear-gradient(135deg, #000000 0%, #180569 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .codesign-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .codesign-number {
+            font-size: 3rem;
+            font-weight: 900;
+            opacity: 0.3;
+            margin-bottom: 1rem;
+        }
+
+        .codesign-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .codesign-desc {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Literature Cards */
+        .lit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .lit-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .lit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .lit-card-header {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .lit-card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .lit-card-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .lit-card-body {
+            padding: 1.5rem;
+        }
+
+        .lit-card-text {
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        /* Deliverables Box */
+        .deliverables-box {
+            background: linear-gradient(135deg, #000000 0%, #180569 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            margin: 3rem 0;
+        }
+
+        .deliverables-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .deliverables-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .deliverables-list li {
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+            position: relative;
+            line-height: 1.7;
+        }
+
+        .deliverables-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        /* Link Button */
+        .link-arrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .link-arrow:hover {
+            gap: 1rem;
+            color: var(--primary);
+        }
+
+        .link-arrow::after {
+            content: '→';
+            font-size: 1.2rem;
+        }
+
+        /* Team Grid */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .team-card {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .team-role {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-name {
+            font-size: 1.1rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        /* Scrollspy Navigation - RIGHT SIDE */
+        .scrollspy-nav {
+            position: fixed;
+            top: 50%;
+            right: 0.5rem;
+            transform: translateY(-50%);
+            z-index: 999;
+            padding: 0.1rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+        }
+
+        .scrollspy-nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .scrollspy-nav li {
+            margin: 1rem 0;
+        }
+
+        .scrollspy-nav a {
+            display: block;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem;
+            border-left: 3px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .scrollspy-nav a:hover {
+            color: var(--secondary);
+            border-left-color: var(--secondary);
+            background: rgba(78, 205, 196, 0.1);
+        }
+
+        .scrollspy-nav a.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 600;
+            background: rgba(255, 107, 107, 0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+                padding-left: 60px;
+            }
+
+            .timeline-dot {
+                left: 30px;
+            }
+
+            .timeline-item:nth-child(odd) {
+                flex-direction: column;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content {
+                text-align: left;
+            }
+
+            .phase-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loader">
+        <div class="loader-text">LOADING</div>
+    </div>
+
+    <!-- Right-side Scrollspy Navigation -->
+    <nav class="scrollspy-nav">
+        <ul>
+            <li><a href="#overview" class="nav-link">x</a></li>
+            <li><a href="#phase1" class="nav-link">X</a></li>
+            <li><a href="#phase2" class="nav-link">X</a></li>
+            <li><a href="#phase3" class="nav-link">X</a></li>
+            <li><a href="#phase4" class="nav-link">X</a></li>
+            <li><a href="#phase5" class="nav-link">X</a></li>
+            <li><a href="#phase6" class="nav-link">X</a></li>
+        </ul>
+    </nav>
+
+    <!-- Navigation -->
+    <nav class="nav-container" id="navbar">
+        <div class="nav-content">
+            <a href="#" class="nav-logo">Thesis Process</a>
+            <ul class="nav-menu">
+                <li><a href="#overview" class="nav-link">Overview</a></li>
+                <li><a href="#phase1" class="nav-link">Framing the Inquiry</a></li>
+                <li><a href="#phase2" class="nav-link">User Research</a></li>
+                <li><a href="#phase3" class="nav-link">Surfacing Insights</a></li>
+                <li><a href="#phase4" class="nav-link">Visualization and Evaluation</a></li>
+                <li><a href="#phase5" class="nav-link">Reflections</a></li>
+                <li><a href="#phase6" class="nav-link">Bonus</a></li>
+            </ul>
+        </div>
+    </nav>
+        
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        
+        <div class="hero-content">
+            <div class="hero-badge">Thesis Process</div>
+            <h1>Co-Designing Across the Gaps</h1>
+            <p class="hero-subtitle">Visualizing System Complexities and Stakeholder Perspectives in U.S. Wheelchair Service Delivery</p>
+            <div class="hero-cta">
+                <a href="#overview" class="btn btn-primary">Explore Research</a>
+                <a href="#" class="btn btn-secondary">View Full Paper</a>
+                <a href="#" class="btn btn-secondary">View Visualization</a>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section" id="overview">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Overview</span>
+                <h2 class="section-title">Reframing Healthcare Through Design</h2>
+                <p class="section-subtitle">This design research project explores the complexities of the wheelchair service delivery process in the United States. Anchored in a relational perspective, it examines how misalignments among stakeholders contribute to inefficiencies and inequities across the system.</p>
+            </div>
+
+            <div class="overview-grid">
+                <div class="overview-card">
+                    <div class="overview-card-icon">🔍</div>
+                    <h3>Systems Visualization</h3>
+                    <p>Using co-design approaches and systems visualization, the project surfaces lived experiences and interdependencies that are often overlooked in policy-constrained healthcare environments.</p>
+                </div>
+                <div class="overview-card">
+                    <div class="overview-card-icon">🌟</div>
+                    <h3>Time-Based Journey</h3>
+                    <p>Rather than treating wheelchair acquisition as a linear, transactional event, this research approaches it as an evolving, time-based journey shaped by bureaucratic, emotional, and systemic forces.</p>
+                </div>
+                <div class="overview-card">
+                    <div class="overview-card-icon">🎯</div>
+                    <h3>Why It Matters</h3>
+                    <p>It reframes wheelchair acquisition not as a transactional process but as a time-based, emotionally charged, and policy-constrained journey, inviting cross-sector collaboration.</p>
+                </div>
+            </div>
+
+            <div class="deliverables-box">
+                <h3 class="deliverables-title">Final Deliverables</h3>
+                <ul class="deliverables-list">
+                    <li>Developed a public-facing project website featuring the interactive systems model, research overview, and key findings</li>
+                    <li>Included detailed sections on methodology, literature, stakeholder mapping, design iterations, and evaluation outcomes</li>
+                    <li>Integrated conference presentations, proceedings, and related artifacts as appendices to support dissemination and rigor</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline & Team Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Timeline</span>
+                <h2 class="section-title">Three-Year Research Journey</h2>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">23/24</div>
+                        <div class="timeline-desc">Exploring, framing and refining the problem</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">24/25</div>
+                        <div class="timeline-desc">Conducting user research and co-design workshops</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">25/26</div>
+                        <div class="timeline-desc">Developing and evaluating design concepts</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+            </div>
+
+            <div class="section-header" style="margin-top: 6rem;">
+                <span class="section-badge">Acknowledgements</span>
+                <h2 class="section-title">Advising Team</h2>
+                <p class="section-subtitle">  Solo thesis project for an MFA in 
+                    <a href="https://design.osu.edu/grad/drd" target="_blank" rel="noopener noreferrer">
+                    Design Research &amp; Development at The Ohio State University
+                    </a>
+                </p>
+            </div>
+
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-avatar"><img src="Liz-1.png" width="40%"></div>
+                    <div class="team-role">Main Advisor</div>
+                    <div class="team-name">Dr. Liz Sanders</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar"><img src="Yvette-1.png" width="40%"></div>
+                    <div class="team-role">Advising Committee</div>
+                    <div class="team-name">Associate Professor Yvette Shen</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar"><img src="Carmen-1.png" width="40%"></div>
+                    <div class="team-role">Advising Committee</div>
+                    <div class="team-name">Dr. Carmen DiGiovine</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Question -->
+    <section class="research-question">
+        <div class="research-content">
+            <div class="research-label">Research Question</div>
+            <p class="research-text">How can a design-led approach, grounded in a relational perspective, reconfigure how stakeholders perceive, engage with, and reform the wheelchair service delivery process in the United States?</p>
+        </div>
+    </section>
+
+    <!-- Process Overview -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Research Process</span>
+                <h2 class="section-title">Five Phases of Investigation</h2>
+            </div>
+
+            <div class="process-grid">
+                <div class="process-card">
+                    <div class="process-number">1</div>
+                    <h3 class="process-title">Framing the Inquiry</h3>
+                    <p class="process-desc">Introduction, Background: Policy Constraints and Systemic Gaps, Research Question</p>
+                </div>
+                <div class="process-card">
+                    <div class="process-number">2</div>
+                    <h3 class="process-title">User Research</h3>
+                    <p class="process-desc">Literature Review, Pilot Tests, Stakeholder Engagement, Co-Design Activities</p>
+                </div>
+                <div class="process-card">
+                    <div class="process-number">3</div>
+                    <h3 class="process-title">Surfacing Insights</h3>
+                    <p class="process-desc">DIKW Framework, Relational Themes, Patterns of Systemic Breakdown</p>
+                </div>
+                <div class="process-card">
+                    <div class="process-number">4</div>
+                    <h3 class="process-title">Visualization</h3>
+                    <p class="process-desc">Interactive Visual System Model, Mapping Stakeholder Dynamics</p>
+                </div>
+                <div class="process-card">
+                    <div class="process-number">5</div>
+                    <h3 class="process-title">Reflections</h3>
+                    <p class="process-desc">Final Visualizations, Policy Implications, Future Research</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Phase 1 -->
+    <section class="phase-section" id="phase1">
+        <div class="container">
+            <div class="phase-header">
+                <div class="phase-number">01</div>
+                <div class="phase-title-block">
+                    <h2>Framing the Inquiry</h2>
+                    <p class="phase-subtitle">Untangling Access in Wheelchair Service Delivery</p>
+                </div>
+            </div>
+
+            <div class="quote-box">
+                Nobody wants to need a wheelchair. But when you do, how long should you wait to move, to leave your home, to live your life?
+            </div>
+
+            <div class="interactive-card">
+                <h3>The 100-Day Reality</h3>
+                <p>On average, it takes over 100 days to receive a mobility device in the U.S. (Cuppett et al., 2022). The wheelchair service delivery system is highly fragmented and bureaucratic, involving multiple steps, clinic appointments, evaluations, supplier documentation, and insurer authorization—each prone to delays, miscommunication, and unclear accountability (McDoom et al., 2012).</p>
+                
+                <p style="margin-top: 1.5rem;">Stakeholders often operate in silos with limited system-wide visibility. Regulatory frameworks, particularly those tied to Medicare/Medicaid, contribute to prolonged disruptions, while clinicians face heavy documentation burdens (Hobensack, 2022), suppliers are constrained by repair policies, and users have little clarity or control over their options (Smith, 2024).</p>
+
+                <div class="tag-list">
+                    <span class="tag">Fragmented Process</span>
+                    <span class="tag">Policy Constraints</span>
+                    <span class="tag">Stakeholder Silos</span>
+                    <span class="tag">Documentation Burden</span>
+                </div>
+            </div>
+
+            <div class="interactive-card" style="margin-top: 2rem;">
+                <h3>Research Context</h3>
+                <h4 style="color: var(--accent); margin-bottom: 1rem;">What do people know?</h4>
+                <p>While there has been substantial quantitative research involving multiple stakeholders, and qualitative studies focused on individual groups, there remains a notable gap in research that qualitatively examines the wheelchair service delivery process through the active participation of all key parties—wheelchair users, caregivers, clinicians, manufacturers, and insurers—using a co-design approach.</p>
+                
+                <h4 style="color: var(--accent); margin-top: 2rem; margin-bottom: 1rem;">Design-Led Systems Approach</h4>
+                <p>This thesis adopts a design-led, systems-oriented approach grounded in co-design to explore the complex and often fragmented landscape of wheelchair service delivery in the United States. Rather than attempting to solve a predefined problem, the research operates within the "fuzzy front end" of the design process—where ambiguity, misalignment, and systemic opacity obscure opportunities for meaningful change.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Phase 2 -->
+    <section class="phase-section" id="phase2" style="background: var(--bg-light);">
+        <div class="container">
+            <div class="phase-header">
+                <div class="phase-number">02</div>
+                <div class="phase-title-block">
+                    <h2>User Research</h2>
+                    <p class="phase-subtitle">Literature Review, Pilot Tests, and Co-Design Activities</p>
+                </div>
+            </div>
+
+            <div class="section-header">
+                <h3 style="font-size: 1.8rem; color: var(--primary); margin-bottom: 1rem;">Literature Review</h3>
+                <p style="font-size: 1.1rem; color: var(--text-light);">The literature review guided the research direction by deepening thematic understanding and shaping key ideas.</p>
+            </div>
+
+            <div class="lit-grid">
+                <div class="lit-card">
+                    <div class="lit-card-header">
+                        <h4 class="lit-card-title">Title here</h4>
+                        <p class="lit-card-subtitle">Key Takeaway</p>
+                    </div>
+                    <div class="lit-card-body">
+                        <p class="lit-card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="#" class="link-arrow">Read full paper here</a>
+                    </div>
+                </div>
+                <div class="lit-card">
+                    <div class="lit-card-header">
+                        <h4 class="lit-card-title">Title here</h4>
+                        <p class="lit-card-subtitle">Key Takeaway</p>
+                    </div>
+                    <div class="lit-card-body">
+                        <p class="lit-card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="#" class="link-arrow">Read full paper here</a>
+                    </div>
+                </div><div class="lit-card">
+                    <div class="lit-card-header">
+                        <h4 class="lit-card-title">Title here</h4>
+                        <p class="lit-card-subtitle">Key Takeaway</p>
+                    </div>
+                    <div class="lit-card-body">
+                        <p class="lit-card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="#" class="link-arrow">Read full paper here</a>
+                    </div>
+                </div><div class="lit-card">
+                    <div class="lit-card-header">
+                        <h4 class="lit-card-title">Title here</h4>
+                        <p class="lit-card-subtitle">Key Takeaway</p>
+                    </div>
+                    <div class="lit-card-body">
+                        <p class="lit-card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="#" class="link-arrow">Read full paper here</a>
+                    </div>
+                </div>
+                <div class="lit-card">
+                    <div class="lit-card-header">
+                        <h4 class="lit-card-title">Long title here</h4>
+                        <p class="lit-card-subtitle">Key Takeaway</p>
+                    </div>
+                    <div class="lit-card-body">
+                        <p class="lit-card-text">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <a href="#" class="link-arrow">Read full paper here</a>
+                    </div>
+                </div>
+                <div class="lit-card">
+                    <div class="lit-card-header">
+                        <h4 class="lit-card-title">Longer title here</h4>
+                        <p class="lit-card-subtitle">Key Takeaway</p>
+                    </div>
+                    <div class="lit-card-body">
+                        <p class="lit-card-text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                        <a href="#" class="link-arrow">Read full paper here</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interactive-card">
+                <h3>Research Methodology</h3>
+                <p>This research adopts co-design as the primary research approach, leveraging participatory tools and workshop formats to explore systemic barriers and reimagine the wheelchair service delivery model. Rooted in design-led inquiry, the approach aims to surface lived experiences and collective visions for change through a series of structured, yet open-ended, engagements with diverse stakeholders.</p>
+
+                <h4 style="margin-top: 2rem; color: var(--primary);">Why Co-Design is Necessary?</h4>
+                
+                <div class="codesign-grid">
+                    <div class="codesign-card">
+                        <div class="codesign-number">1</div>
+                        <h4 class="codesign-title">Complexity Is Social, Not Just Technical</h4>
+                        <p class="codesign-desc">The wheelchair service delivery process is a network of human relationships shaped by policy, expectations, and lived experience. Co-design makes these relational dynamics visible and negotiable.</p>
+                    </div>
+                    <div class="codesign-card">
+                        <div class="codesign-number">2</div>
+                        <h4 class="codesign-title">Lived Experience Is Missing from Policy</h4>
+                        <p class="codesign-desc">Regulatory frameworks are top-down and disconnected from user experience. Co-design centers lived experience as legitimate expertise, allowing direct stakeholder input.</p>
+                    </div>
+                    <div class="codesign-card">
+                        <div class="codesign-number">3</div>
+                        <h4 class="codesign-title">Stakeholders Operate in Silos</h4>
+                        <p class="codesign-desc">The process is siloed, with actors seeing only a slice of the system. Co-design workshops enable dialogue, shared sense-making, and co-creation of solutions.</p>
+                    </div>
+                    <div class="codesign-card">
+                        <div class="codesign-number">4</div>
+                        <h4 class="codesign-title">Policy Change Requires Systemic Buy-In</h4>
+                        <p class="codesign-desc">Traditional reforms fail without real-world grounding. Co-design builds trust, shared language, and mutual accountability for adaptive, implementable shifts.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interactive-card" style="margin-top: 2rem;">
+                <h3>Pilot Tests & Platform Choice</h3>
+                <p>The primary research was initiated with a series of workshop materials development for the co-design sessions. Following ethical guidelines, several questions arose about the effectiveness and clarity of materials.</p>
+                
+                <h4 style="margin-top: 2rem; color: var(--accent);">Key refinements for pilot testing:</h4>
+                <ul style="list-style: none; padding: 0; margin-top: 1rem;">
+                    <li style="margin-bottom: 0.8rem;">✓ Are the instructions clear?</li>
+                    <li style="margin-bottom: 0.8rem;">✓ Are the materials used helpful?</li>
+                    <li style="margin-bottom: 0.8rem;">✓ What are the areas of improvement that can be made?</li>
+                    <li style="margin-bottom: 0.8rem;">✓ How can I better prepare/know what to anticipate for the actual workshop?</li>
+                </ul>
+
+                <h4 style="margin-top: 2rem; color: var(--accent);">Platform Choice: Miro</h4>
+                <p>Given the sensitive nature of the topic, hosting the co-design workshop in person at Hayes Hall at The Ohio State University proved to be less practical. With participants joining from across the Midwest, conducting the workshop on Miro offered a more accessible and meaningful platform. It provided greater flexibility, ensured participant comfort, and ultimately added more value to the co-design process.</p>
+            </div>
+
+            <div class="interactive-card" style="margin-top: 2rem;">
+                <h3>Stakeholder Engagement and Participant Overview</h3>
+                <p>Throughout this research, a total of 14 participants were engaged across six stakeholder groups. Each offered a unique perspective on the system's function and dysfunction.</p>
+
+                <table class="participant-table">
+                    <thead>
+                        <tr>
+                            <th>Stakeholder Group</th>
+                            <th>Number of Participants</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Wheelchair Users</td>
+                            <td>4</td>
+                            <td>Primary beneficiaries</td>
+                        </tr>
+                        <tr>
+                            <td>Caregivers</td>
+                            <td>2</td>
+                            <td>Support network</td>
+                        </tr>
+                        <tr>
+                            <td>Clinicians</td>
+                            <td>3*</td>
+                            <td>*Three participants with dual roles (caregiver, supplier, manufacturer) also had clinical backgrounds</td>
+                        </tr>
+                        <tr>
+                            <td>Suppliers</td>
+                            <td>2</td>
+                            <td>Equipment providers</td>
+                        </tr>
+                        <tr>
+                            <td>Manufacturers</td>
+                            <td>2</td>
+                            <td>Product developers</td>
+                        </tr>
+                        <tr>
+                            <td>Insurers</td>
+                            <td>1</td>
+                            <td>Coverage decision-makers</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-light);">All participants, who were recruited based on personal connections, participated in the workshops voluntarily with a small incentive.</p>
+            </div>
+
+            <div class="interactive-card" style="margin-top: 2rem;">
+                <h3>Co-Design Activities</h3>
+                
+                <h4 style="color: var(--accent); margin-bottom: 1rem;">Pre-Workshop Preparation</h4>
+                <p>Before each session, participants received preparatory materials visualizing the current Rehabilitation Engineering and Assistive Technology Society of North America (RESNA) wheelchair service delivery framework from a clinician's perspective. These materials provided a shared reference point and foundational context for subsequent discussions.</p>
+
+                <h4 style="color: var(--accent); margin-top: 2rem; margin-bottom: 1rem;">Individual Experience Mapping</h4>
+                <p>During the workshop, participants engaged in a visual mapping exercise to reflect on their personal journey within the wheelchair service delivery system. Using a temporal axis, individuals identified positive experiences above the line and challenges below the line. This activity facilitated self-guided storytelling while anchoring narratives in specific points of interaction.</p>
+
+                <h4 style="color: var(--accent); margin-top: 2rem; margin-bottom: 1rem;">Future Visioning and Speculative Scenarios</h4>
+                <p>Participants transitioned from present experience to speculation. Working individually or in small groups, they co-created speculative scenarios, either utopian or dystopian, to reimagine the future of wheelchair service delivery. A creative canvas (Miro board) supported the construction of visual narratives.</p>
+                
+                <a href="#" class="link-arrow">View all future maps here</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Phase 3 -->
+    <section class="phase-section" id="phase3">
+        <div class="container">
+            <div class="phase-header">
+                <div class="phase-number">03</div>
+                <div class="phase-title-block">
+                    <h2>Surfacing Insights from the System</h2>
+                    <p class="phase-subtitle">Analytical Approach: DIKW Framework and Coding Methods</p>
+                </div>
+            </div>
+
+            <div class="interactive-card">
+                <h3>Analysis Approach</h3>
+                <p>The analysis focused on making sense of data gathered through co-design workshops, stakeholder interviews, and visual mapping exercises that examined the complexities of the wheelchair service delivery process. Emphasis was placed on capturing the lived experiences.</p>
+
+                <h4 style="margin-top: 2rem; color: var(--accent);">Transcript Review</h4>
+                <p>Audio-recorded co-design sessions and interviews were transcribed and reviewed alongside participant-generated artifacts such as annotated maps, visual timelines, and storytelling prompts. Particular attention was paid to emotionally charged language, tensions in service interactions, and moments where participants described agency, resistance, or systemic breakdowns.</p>
+
+                <h4 style="margin-top: 2rem; color: var(--accent);">Affinity Mapping</h4>
+                <p>Using Miro, I clustered key quotes, reflections, and observational notes across stakeholder types. This allowed for the identification of both overlapping and diverging themes, such as breakdown points in authorization, repair delays, or emotional labor within caregiver roles. Color-coded tags were used to distinguish between systemic, relational, and procedural insights.</p>
+
+                <h4 style="margin-top: 2rem; color: var(--accent);">Thematic Coding and Synthesis</h4>
+                <p>Insights were synthesized through iterative coding rounds to highlight recurring patterns in participant narratives. Codes were organized around phases of the wheelchair acquisition journey (e.g., prescription, funding approval, delivery, maintenance), as well as cross-cutting themes such as autonomy, opacity, and trust.</p>
+            </div>
+
+            <div class="interactive-card" style="margin-top: 2rem;">
+                <h3>Key Insights</h3>
+                <p>Insights from the co-design sessions revealed distinct yet interconnected themes across stakeholder groups, highlighting critical friction points and relational breakdowns within the wheelchair service delivery process. Each group brought forward unique lived experiences that collectively demonstrate how systemic inefficiencies ripple across the broader ecosystem.</p>
+
+                <div style="background: var(--bg-gradient); color: white; padding: 2rem; border-radius: 15px; margin-top: 2rem;">
+                    <h4 style="margin-bottom: 1rem;">Finding:</h4>
+                    <p>Taken together, these findings reveal a deeply entangled network of relationships, responsibilities, and constraints that shape the wheelchair service delivery process. While each stakeholder group faces distinct challenges, the data points to a shared experience of fragmentation, miscommunication, and misalignment between policy intent and practice.</p>
+                </div>
+
+                <div class="tag-list" style="margin-top: 2rem;">
+                    <span class="tag">Breakdown Points</span>
+                    <span class="tag">Authorization Delays</span>
+                    <span class="tag">Emotional Labor</span>
+                    <span class="tag">Trust Gaps</span>
+                    <span class="tag">Systemic Opacity</span>
+                    <span class="tag">Invisible Labor</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Phase 4 -->
+    <section class="phase-section" id="phase4" style="background: var(--bg-light);">
+        <div class="container">
+            <div class="phase-header">
+                <div class="phase-number">04</div>
+                <div class="phase-title-block">
+                    <h2>Visualization and Evaluation</h2>
+                    <p class="phase-subtitle">Development of the Interactive Visual System Model</p>
+                </div>
+            </div>
+
+            <div class="interactive-card">
+                <h3>Development of the Interactive Visual System Model</h3>
+                <p>Given the widespread fragmentation and misalignment surfaced across stakeholder narratives, it becomes clear that understanding the wheelchair service delivery system requires more than identifying individual breakdowns; it demands a collective reframing of how relationships, policies, and processes interact over time.</p>
+
+                <p style="margin-top: 1.5rem;">An initial visual system mapping intervention was developed to address these relational gaps. The intervention aimed not only to make complexity visible but also to support participatory reflection across stakeholder groups. This composite model was visualized using a two-dimensional journey framework: the vertical axis represented stakeholder roles, while the horizontal axis represented time.</p>
+
+                <h4 style="margin-top: 2rem; color: var(--accent);">How was this assembled?</h4>
+                <p>To synthesize findings across stakeholder experiences, we developed a visual system mapping tool that emerged from participant-created experience maps and lived experiences through the co-design sessions. This intervention consisted the results of analyzed diagrams and annotated maps built directly from the participants' workshop inputs.</p>
+
+                <h4 style="margin-top: 2rem; color: var(--accent);">Based on user feedback, the visualization was reconceptualized to:</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+                    <div style="padding: 1.5rem; background: white; border-radius: 15px; border-left: 4px solid var(--accent);">
+                        <p>Provide each stakeholder group a lens into the full system, not just their silo</p>
+                    </div>
+                    <div style="padding: 1.5rem; background: white; border-radius: 15px; border-left: 4px solid var(--accent);">
+                        <p>Reveal points of tension between policy and practice</p>
+                    </div>
+                    <div style="padding: 1.5rem; background: white; border-radius: 15px; border-left: 4px solid var(--accent);">
+                        <p>Highlight invisible labor performed by users and caregivers</p>
+                    </div>
+                    <div style="padding: 1.5rem; background: white; border-radius: 15px; border-left: 4px solid var(--accent);">
+                        <p>Show how regulatory feedback loops delay or derail progress</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interactive-card" style="margin-top: 2rem;">
+                <h3>Mapping Stakeholder Dynamics and Invisible Labor</h3>
+                <p>Ultimately, the intervention produced through this research functions as a set of tools that support engagement with system complexity. Rather than acting as explanatory illustrations, these figures function as tools for cross-stakeholder dialogue, enabling participants to see their role in a broader system and identify opportunities for redesign.</p>
+
+                <h4 style="margin-top: 2rem; color: var(--accent);">Speculative Future Models and 2035 Workflow</h4>
+                <p>These visual artifacts demonstrate the role of design, particularly visual storytelling, in bridging policy gaps, enhancing transparency, and enabling more participatory and relational approaches to healthcare governance and decision-making.</p>
+                
+                <a href="#" class="link-arrow">View all future scenarios here</a>
+
+                <h4 style="margin-top: 2rem; color: var(--accent);">Evaluation Survey</h4>
+                <p>As part of the iterative co-design process, I conducted a qualitative evaluation survey to assess the clarity, relevance, and usability of the system visualization prototype. Using open-ended prompts and interactive visuals, the survey allowed stakeholders, including wheelchair users, caregivers, clinicians, insurer, manufacturer, and suppliers, to reflect on how well the visualization represented their lived experiences and needs.</p>
+                
+                <a href="#" class="link-arrow">View full questionnaire here</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Phase 5 -->
+    <section class="phase-section" id="phase5">
+        <div class="container">
+            <div class="phase-header">
+                <div class="phase-number">05</div>
+                <div class="phase-title-block">
+                    <h2>Reflections and Systemic Implications</h2>
+                    <p class="phase-subtitle">Final Visualizations, Policy Design, and Future Research</p>
+                </div>
+            </div>
+
+            <div class="interactive-card">
+                <h3>Final Visualizations</h3>
+                <p>This research demonstrates how systemic design, grounded in relational perspectives and participatory methods, can help untangle the complexities of wheelchair service delivery. By surfacing the hidden dynamics of stakeholder relationships and policy constraints, we move toward more equitable, adaptive, and transparent models of healthcare access.</p>
+
+                <p style="margin-top: 1.5rem;">Our visual tools and co-design approach offer practical starting points for reimagining policy governance as a living, iterative process, where impact is not a singular outcome but an evolving pattern of relational change.</p>
+            </div>
+
+            <div class="interactive-card" style="margin-top: 2rem;">
+                <h3>Implications for Policy Design, Collaboration, and Equity</h3>
+                <p>Several practical implications emerged from this research:</p>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                    <div style="padding: 2rem; background: var(--bg-gradient); color: white; border-radius: 15px;">
+                        <h4 style="margin-bottom: 1rem;">Policy Participation</h4>
+                        <p>Policies can no longer be designed in a vacuum. Incorporating qualitative user narratives into insurance frameworks could make eligibility determinations more transparent and equitable.</p>
+                    </div>
+                    <div style="padding: 2rem; background: var(--bg-gradient); color: white; border-radius: 15px;">
+                        <h4 style="margin-bottom: 1rem;">Cross-Stakeholder Dialogue</h4>
+                        <p>Involved stakeholders must be allowed and supported to collaborate meaningfully. Restrictive documentation practices currently hinder this relationship.</p>
+                    </div>
+                    <div style="padding: 2rem; background: var(--bg-gradient); color: white; border-radius: 15px;">
+                        <h4 style="margin-bottom: 1rem;">Visual Tools as System Navigators</h4>
+                        <p>The interactive visual model created during this project served not only as research tools but also as system navigation aids, empowering participants.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interactive-card" style="margin-top: 2rem;">
+                <h3>Limitations & Future Works</h3>
+                <p>While this research focused primarily on the wheelchair service delivery model in the United States, specifically Ohio, future research could expand this framework to other health systems and geographies. Where future-focused scenarios were imaginative but not stress-tested against legal or financial feasibility.</p>
+
+                <p style="margin-top: 1.5rem;">Additional work is needed to explore how these insights can be operationalized within policymaking and education, particularly within spaces that address systemic and social design challenges. As future research moves toward implementation, attention must be paid to how relational, participatory approaches can coexist with the structures and logics of hierarchical systems.</p>
+
+                <div style="background: #f0f5f9; padding: 2rem; border-left: 4px solid var(--accent); border-radius: 10px; margin-top: 2rem;">
+                    <h4 style="color: var(--accent); margin-bottom: 1rem;">Key Consideration</h4>
+                    <p>Budget-controlling departments are unlikely to adopt co-design approaches unless their value is translated into system-compatible formats such as improved outcomes, faster processing times, or reduced administrative burden. Exploring this translation will be crucial to scaling this work beyond the prototyping phase.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Phase 6 -->
+    <section class="phase-section" id="phase6">
+                <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Bonus</span>
+                <h2 class="section-title">Research Dissemination</h2>
+                <p class="section-subtitle">This thesis research has been presented at 4 major conferences, reaching diverse audiences across design, healthcare, and technology communities.</p>
+            </div>
+
+            <div class="conference-grid">
+                <div class="conference-card">
+                    <div class="conference-date">
+                        <span class="conference-month">May</span>
+                        <span class="conference-day">12</span>
+                        <span class="conference-year">2025</span>
+                    </div>
+                    <div class="conference-info">
+                        <h3 class="conference-name">RehabWeek2025</h3>
+                        <p class="conference-location">📍 Chicago, IL</p>
+                        <span class="conference-type">Workshop</span>
+                        <p class="conference-desc">Led an interactive workshop on reimagining wheelchair service delivery through participatory design, engaging clinicians, suppliers, and policy makers in collaborative visioning exercises.</p>
+                        <a href="https://link here/" target="_blank" rel="noopener noreferrer" class="view-more">View more →</a>
+                    </div>
+                </div>
+
+                <div class="conference-card">
+                    <div class="conference-date">
+                        <span class="conference-month">May</span>
+                        <span class="conference-day">12</span>
+                        <span class="conference-year">2025</span>
+                    </div>
+                    <div class="conference-info">
+                        <h3 class="conference-name">RESNA2025 Scientific Paper</h3>
+                        <p class="conference-location">📍 Chicago, IL</p>
+                        <span class="conference-type">Poster Presentation</span>
+                        <p class="conference-desc">Presented findings on co-design methodologies in healthcare systems, focusing on stakeholder engagement strategies and visual mapping techniques for complex service delivery processes.</p>
+                        <a href="https://rehabweek.org/" target="_blank" rel="noopener noreferrer" class="view-more">View more →</a>
+                    </div>
+                </div>
+
+                <div class="conference-card">
+                    <div class="conference-date">
+                        <span class="conference-month">Jun</span>
+                        <span class="conference-day">12</span>
+                        <span class="conference-year">2025</span>
+                    </div>
+                    <div class="conference-info">
+                        <h3 class="conference-name">AIGA Weave 2025</h3>
+                        <p class="conference-location">📍 Normal, IL</p>
+                        <span class="conference-type">Presentation</span>
+                        <p class="conference-desc">Showcased the interactive visual system model developed through the research, demonstrating how digital tools can bridge understanding gaps between diverse healthcare stakeholders.</p>
+                        <a href="https://rehabweek.org/" target="_blank" rel="noopener noreferrer" class="view-more">View more →</a>
+                    </div>
+                </div>
+
+                <div class="conference-card">
+                    <div class="conference-date">
+                        <span class="conference-month">Oct</span>
+                        <span class="conference-day">10</span>
+                        <span class="conference-year">2025</span>
+                    </div>
+                    <div class="conference-info">
+                        <h3 class="conference-name">Relating Systems Thinking & Design (RSD14)</h3>
+                        <p class="conference-location">📍 Toronto, Canada</p>
+                        <span class="conference-type">Presentation</span>
+                        <p class="conference-desc">Delivered presentation on "Relational Perspectives in Healthcare Design," exploring how systems thinking and co-design can transform policy-constrained healthcare environments.</p>
+                        <a href="https://rehabweek.org/" target="_blank" rel="noopener noreferrer" class="view-more">View more →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <h3>MFA Thesis in Design Research & Development</h3>
+            <p style="margin-top: 1rem; opacity: 0.8;">The Ohio State University • By Kahmin Ong • 2025/2026</p>
+            <div class="footer-links">
+                <a href="#">Full Paper</a>
+                <a href="#">Visualization</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll animations
+        window.addEventListener('scroll', () => {
+            // Navbar scroll effect
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            // Section animations
+            const sections = document.querySelectorAll('.section, .phase-section');
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top < window.innerHeight * 0.8) {
+                    section.classList.add('visible');
+                }
+            });
+
+            // Update active nav link
+            const navLinks = document.querySelectorAll('.nav-link');
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
