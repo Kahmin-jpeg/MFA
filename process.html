@@ -2456,8 +2456,6 @@
             });
         });
 
-        history.pushState(null, null, link.getAttribute('href'));
-
         // Modal functionality
         const modal = document.getElementById('futureMapsModal');
         const openBtn = document.getElementById('openFutureMaps');
@@ -2514,6 +2512,8 @@
                 closeLightbox();
             }
         });
+
+        history.pushState(null, null, link.getAttribute('href'));
     </script>
 </body>
 </html>
