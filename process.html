@@ -1783,7 +1783,7 @@
                 <div class="process-card">
                     <div class="process-number">2</div>
                     <h3 class="process-title">User Research</h3>
-                    <p class="process-desc">Pilot Tests, Stakeholder Engagement, Co-Design Activities</p>
+                    <p class="process-desc">Literature Review, Pilot Tests, Stakeholder Engagement, Co-Design Activities</p>
                 </div>
                 <div class="process-card">
                     <div class="process-number">3</div>
@@ -1917,7 +1917,7 @@
                 <div class="phase-number">02</div>
                 <div class="phase-title-block">
                     <h2>User Research</h2>
-                    <p class="phase-subtitle">Pilot Tests, and Co-Design Activities</p>
+                    <p class="phase-subtitle">Literature Review, Pilot Tests, and Co-Design Activities</p>
                 </div>
             </div>
 
@@ -2402,10 +2402,8 @@
     </div>
 
     <script>
-        history.pushState(null, null, link.getAttribute('href'));
-    
-        // Scroll animations
-        window.addEventListener('scroll', () => {
+            // Scroll animations
+            window.addEventListener('scroll', () => {
             // Navbar scroll effect
             const navbar = document.getElementById('navbar');
             if (window.scrollY > 100) {
@@ -2457,6 +2455,8 @@
                 }
             });
         });
+
+        history.pushState(null, null, link.getAttribute('href'));
 
         // Modal functionality
         const modal = document.getElementById('futureMapsModal');
@@ -2517,4 +2517,3 @@
     </script>
 </body>
 </html>
-
