@@ -1350,6 +1350,8 @@
             border: 1px solid var(--border-light);
             box-shadow: 0 8px 32px rgba(0,0,0,0.2);
         }
+
+        
         
         .year-display {
             font-size: 2.5em;
@@ -1366,8 +1368,14 @@
             flex: 1;
             max-width: 500px;
             margin: 0 30px;
+            position: relative;
+            /*padding-bottom: 40px;*/
         }
-        
+
+        .slider-track-wrapper {
+            position: relative;
+        }
+
         .evolution-slider {
             width: 100%;
             height: 12px;
@@ -1377,6 +1385,42 @@
             -webkit-appearance: none;
             position: relative;
             border: 1px solid var(--border-light);
+        }
+
+        .slider-markers {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            pointer-events: none;
+        }
+
+        .slider-marker {
+            position: absolute;
+            top: 0;
+            transform: translateX(-50%);
+        }
+
+        .slider-marker::before {
+            content: '';
+            display: block;
+            width: 3px;
+            height: 12px;
+            background: var(--accent-primary);
+            border-radius: 2px;
+            box-shadow: 0 2px 8px rgba(56, 189, 248, 0.4);
+        }
+
+        .slider-marker-label {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            white-space: nowrap;
         }
         
         .evolution-slider::-webkit-slider-thumb {
@@ -1678,6 +1722,37 @@
             color: var(--accent-primary);
         }
 
+        .opp-card {
+            position: relative;
+        }
+
+        .phase-tag {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .phase-tag.preventive {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .phase-tag.reactive {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .phase-tag.education {
+            background: #f3e5f5;
+            color: #6a1b9a;
+        }
+
         /* Responsive */
         @media (max-width: 1200px) {
             .maintenance-grid {
@@ -1743,6 +1818,7 @@
         }
     </style>
 </head>
+
 <body>
     <button id="scrollspy-toggle">☰ Menu</button>
     
@@ -1848,7 +1924,7 @@
     <!-- Stakeholder Evolution Section -->
     <section id="evolution" class="section stakeholder-evolution">
         <div class="evolution-container">
-            <div class="opportunity-badge">From Co-design workshop</div>
+            <a href="https://kahmin-jpeg.github.io/MFA/process.html#phase2" target="_blank" rel="noopener noreferrer"><div class="opportunity-badge">From Co-design workshop</div></a>
             <div class="evolution-header">
                 <h2>Stakeholder Evolution</h2>
                 <p>Interactive visualization of key players transformation over time</p>
@@ -1928,7 +2004,7 @@
     <!-- Process Steps with Stakeholder Experiences -->
     <section id="process" class="process-section">
         <div class="container">
-            <div class="opportunity-badge">From Co-design workshop and evaluation survey</div>
+            <a href="https://kahmin-jpeg.github.io/MFA/process.html#phase2" target="_blank" rel="noopener noreferrer"><div class="opportunity-badge">From Co-design workshop and evaluation survey</div></a>
             <h2 style="text-align: center; font-size: 3rem; margin-bottom: 3rem; font-weight: 900;">The Service Delivery Journey</h2>
             <p style="text-align: center; font-size: 1.3rem; opacity: 0.8; max-width: 800px; margin: 0 auto 60px;">Navigate through each critical step of the wheelchair acquisition process while exploring diverse stakeholder perspectives</p>
         </div>
@@ -2322,37 +2398,41 @@
                 </div>
             </div>
             <div class="opportunities-section">
-                        <h3>Emerging Opportunities</h3>
-                            <div class="opportunity-cards">
-                                <div class="opp-card">
-                                    <div class="opp-icon">🔧</div>
-                                    <h4>Mobile Repair Networks</h4>
-                                    <p>On-demand technicians bringing repairs directly to users' homes</p>
-                                </div>
-                                <div class="opp-card">
-                                    <div class="opp-icon">📱</div>
-                                    <h4>Digital Diagnostics</h4>
-                                    <p>IoT sensors detecting issues before critical failures occur</p>
-                                </div>
-                                <div class="opp-card">
-                                    <div class="opp-icon">🤝</div>
-                                    <h4>Community Repair Hubs</h4>
-                                    <p>User-led cooperatives sharing knowledge and resources</p>
-                                </div>
-                                <div class="opp-card">
-                                    <div class="opp-icon">📚</div>
-                                    <h4>Preventive Care Programs</h4>
-                                    <p>Regular maintenance schedules preventing major breakdowns</p>
-                                </div>
-                            </div>
-                        </div>
+    <h3>Emerging Opportunities</h3>
+            <div class="opportunity-cards">
+                <div class="opp-card">
+                    <span class="phase-tag reactive">Reactive</span>
+                    <div class="opp-icon">🔧</div>
+                    <h4>Mobile Repair Networks</h4>
+                    <p>On-demand technicians bringing repairs directly to users' homes</p>
+                </div>
+                <div class="opp-card">
+                    <span class="phase-tag preventive">Preventive</span>
+                    <div class="opp-icon">📱</div>
+                    <h4>Digital Diagnostics</h4>
+                    <p>IoT sensors detecting issues before critical failures occur</p>
+                </div>
+                <div class="opp-card">
+                    <span class="phase-tag education">Education</span>
+                    <div class="opp-icon">🤝</div>
+                    <h4>Community Repair Hubs</h4>
+                    <p>User-led cooperatives sharing knowledge and resources</p>
+                </div>
+                <div class="opp-card">
+                    <span class="phase-tag preventive">Preventive</span>
+                    <div class="opp-icon">📚</div>
+                    <h4>Preventive Care Programs</h4>
+                    <p>Regular maintenance schedules preventing major breakdowns</p>
+                </div>
+            </div>
+        </div>
         </div>
     </section>
   
     <!-- Survey Data Results Section -->
     <section id="survey" class="section survey-section">
         <div class="container">
-            <div class="opportunity-badge">From evaluation survey</div>
+            <a href="https://kahmin-jpeg.github.io/MFA/process.html#phase4" target="_blank" rel="noopener noreferrer"><div class="opportunity-badge">From evaluation survey</div></a>
             <h2>Research Insights</h2>
             <p class="survey-intro">
                 Our comprehensive survey of 62 stakeholders across the wheelchair service delivery ecosystem revealed critical insights that supplement the stakeholder stories. These data visualizations highlight systemic patterns and qualitative experiences shared throughout this journey.
@@ -2411,7 +2491,7 @@
     <!-- Future Visions Section -->
     <section id="visions" class="section visions-section">
         <div class="container">
-            <div class="opportunity-badge">From co-design wokshop and evaluation survey</div>
+            <a href="https://kahmin-jpeg.github.io/MFA/process.html#phase4" target="_blank" rel="noopener noreferrer"><div class="opportunity-badge">From co-design wokshop and evaluation survey</div></a>
             <h2 style="text-align: center; font-size: 3rem; margin-bottom: 20px;">Envisioning the Future</h2>
             <p style="text-align: center; font-size: 1.3rem; opacity: 0.8; margin-bottom: 50px;">Three visions for wheelchair service delivery in 2035</p>
             
@@ -3218,6 +3298,38 @@
                 updateVisualization();
             });
 
+            // Create markers aligned to slider positions
+            function createMarkers() {
+                const sliderWidth = evolutionSlider.offsetWidth;
+                const numSteps = 3;
+                const markersContainer = document.createElement('div');
+                markersContainer.className = 'slider-markers';
+                markersContainer.id = 'sliderMarkers';
+                
+                for (let i = 0; i <= numSteps; i++) {
+                    const marker = document.createElement('div');
+                    marker.className = 'slider-marker';
+                    
+                    const thumbWidth = 32;
+                    const availableWidth = sliderWidth - thumbWidth;
+                    const position = (availableWidth / numSteps) * i + (thumbWidth / 2);
+                    
+                    marker.style.left = position + 'px';
+                    
+                    const label = document.createElement('div');
+                    label.className = 'slider-marker-label';
+                    // label.textContent = ["2025", "Stage 1", "Stage 2", "Future"][i];
+                    marker.appendChild(label);
+                    
+                    markersContainer.appendChild(marker);
+                }
+                
+                evolutionSlider.parentElement.appendChild(markersContainer);
+            }
+
+            // Call this after your element checks
+            createMarkers();
+
             // Initialize
             updateVisualization();
         }
@@ -3445,7 +3557,7 @@
                                 max: 100,
                                 title: { 
                                     display: true, 
-                                    text: 'Frequency of Mentions', 
+                                    text: 'Frequency', 
                                     font: { weight: 'bold' }, 
                                     color: '#CBD5E1' 
                                 },
