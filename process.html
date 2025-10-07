@@ -1594,6 +1594,307 @@
             display: none;
         }
 
+        /* PERSONAS */
+        .personas-section {
+            margin-top: 0px; /* PERSONAS SECTION WRAPPER */
+        }
+
+        .personas-intro {
+            text-align: center; /* PERSONAS INTRO */
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        .personas-intro h4 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .personas-intro p {
+            font-size: 1.05rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .personas-container {
+            position: relative;
+            /*margin-top: None needed, also this is: PERSONAS CONTAINER (Carousel Wrapper)*/
+        }
+
+        .personas-grid {
+            display: flex; /* PERSONAS GRID (The Scrolling Container) */
+            gap: 2rem;
+            overflow-x: auto;
+            overflow-y: visible;
+            scroll-behavior: smooth;
+            padding: 2rem 1rem;
+            margin: 0 -1rem;
+            scroll-snap-type: x mandatory;
+        }
+
+        /* Custom Scrollbar & CUSTOM SCROLLBAR STYLING*/
+        .personas-grid::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .personas-grid::-webkit-scrollbar-track {
+            background: var(--bg-light);
+            border-radius: 10px;
+        }
+
+        .personas-grid::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 10px;
+        }
+
+        .personas-grid::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        .persona-card { /*PERSONA CARD (Individual Card Container)*/
+            perspective: 1000px;
+            min-width: 320px;
+            height: 480px;
+            scroll-snap-align: center;
+            flex-shrink: 0;
+        }
+
+        /* Scroll Navigation Buttons */
+        .scroll-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .scroll-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 17, 255, 0.3);
+        }
+
+        .scroll-btn:hover {
+            background: var(--primary);
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 17, 255, 0.4);
+        }
+
+        .scroll-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* CARD FLIP MECHANISM */
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .persona-card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front,
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* CARD FRONT DESIGN */
+        .card-front {
+            background: var(--bg-gradient);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2.5rem;
+            color: white;
+        }
+
+        /* Front Content Elements */
+        .persona-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .persona-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .front-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .front-role {
+            font-size: 1.1rem;
+            text-align: center;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .flip-hint {
+            font-size: 0.85rem;
+            text-align: center;
+            opacity: 0.7;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            margin-top: auto;
+        }
+
+        /* Card Back Content Elements */
+        .card-back {
+            background: white;
+            transform: rotateY(180deg);
+            padding: 2rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .back-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--bg-light);
+        }
+
+        .persona-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .persona-role {
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Information Sections */
+        .back-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .back-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.75rem;
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+
+        .back-label.motivation {
+            background: rgba(72, 187, 120, 0.1);
+            color: #48bb78;
+        }
+
+        .back-label.painpoints {
+            background: rgba(245, 101, 101, 0.1);
+            color: #f56565;
+        }
+
+        .back-label.goals {
+            background: rgba(66, 153, 225, 0.1);
+            color: #4299e1;
+        }
+
+        .back-content {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .persona-card {
+                min-width: 280px;
+                height: auto;
+                min-height: 400px;
+            }
+
+            .personas-grid {
+                padding: 1rem 0.5rem;
+                gap: 1rem;
+            }
+
+            .scroll-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .card-inner {
+                transform: none !important;
+            }
+
+            .card-front,
+            .card-back {
+                position: relative;
+                transform: none !important;
+            }
+
+            .card-back {
+                margin-top: 1rem;
+            }
+
+            .finding-box {
+                padding: 2rem;
+            }
+
+            .themes-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+
+        /* Connection Lines (optional enhancement) */
+        .personas-connection {
+            text-align: center;
+            margin: 2rem 0;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        .connection-line {
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            margin: 1rem auto;
+        }
+
         @media (min-width: 768px) {
             .arrow-connector {
                 display: block;
@@ -2186,9 +2487,14 @@
                 <h3>Key Insights</h3>
                 <p>Insights from the co-design sessions revealed distinct yet interconnected themes across stakeholder groups, highlighting critical friction points and relational breakdowns within the wheelchair service delivery process. Each group brought forward unique lived experiences that collectively demonstrate how systemic inefficiencies ripple across the broader ecosystem.</p>
 
+                
                 <div style="background: var(--bg-gradient); color: white; padding: 2rem; border-radius: 15px; margin-top: 2rem;">
                     <h4 style="margin-bottom: 1rem;">Finding:</h4>
-                    <p>Taken together, these findings reveal a deeply entangled network of relationships, responsibilities, and constraints that shape the wheelchair service delivery process. While each stakeholder group faces distinct challenges, the data points to a shared experience of fragmentation, miscommunication, and misalignment between policy intent and practice.</p>
+                    <p>Taken together, these findings reveal a deeply entangled network of relationships, responsibilities, and constraints that shape the wheelchair 
+                        service delivery process. While each stakeholder group faces distinct challenges, the data points to a shared experience of fragmentation, 
+                        miscommunication, and misalignment between policy intent and practice. To capture these dynamics, six personas were developed, each representing a 
+                        composite of lived experiences across clients, caregivers, clinicians, suppliers,  manufacturers and insurers. These personas serve as narrative anchors 
+                        that humanize systemic tensions, illustrating how interdependent decisions and constraints cascade across the service ecosystem.</p>
                 </div>
 
                 <div class="tag-list" style="margin-top: 2rem;">
@@ -2198,6 +2504,250 @@
                     <span class="tag">Trust Gaps</span>
                     <span class="tag">Systemic Opacity</span>
                     <span class="tag">Invisible Labor</span>
+                </div>                
+            </div>
+                
+            <div class="interactive-card" style="margin-top: 2rem">
+                <h3>Extreme Personas</h3>
+                <p>Six personas were developed to serve as narrative anchors that humanize systemic tensions, illustrating how interdependent decisions and constraints cascade across the service ecosystem.</p>
+                    <div class="personas-grid">
+
+
+            <!-- Personas Grid -->
+            <div class="personas-container">
+                <div class="personas-grid" id="personasScroll">
+                    <!-- Persona 1: Charlotte -->
+                    <div class="persona-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="persona-avatar"><img src="wheelchairuser.png"></div>
+                            <div class="front-title">Charlotte</div>
+                            <div class="front-role">The Advocate<br>Wheelchair User</div>
+                            <div class="flip-hint">Hover to reveal →</div>
+                        </div>
+                        <div class="card-back">
+                            <div class="back-header">
+                                <div class="persona-title">"If the system won’t change for us, we’ll change the system."</div>
+                                <div class="persona-role">Charlotte, The Advocate</div>
+                            </div>
+                            <div class="back-section">
+                                <div class="back-label motivation">Motivation</div>
+                                <div class="back-content">Force Transparency: Push for real-time tracking of insurance claims, supplier actions, and clinician documentation.
+                                         <br><br>Empower Wheelchair Clients: Educate others on legal rights, self-advocacy techniques and alternative funding sources.
+                            </div>
+                            </div>
+                            <div class="back-section">
+                                <div class="back-label painpoints">Pain Points</div>
+                                <div class="back-content">Insurance Denials: Has battled multiple rejections for essential wheelchair features, leading to months-long delays.
+                                <br><br>Clinician Gatekeeping: Experienced dismissive healthcare professionals who undermine user autonomy.</div>
+                            </div>
+                            <div class="back-section">
+                                <div class="back-label goals">Assumptions</div>
+                                <div class="back-content">Insurance Companies: “Profit over people.”
+                                Assume insurers intentionally deny claims to cut costs, forcing users into lengthy appeals.
+                                <br><br>
+                                Clinicians: “Some care, most comply.”
+                                Believe clinicians often dismiss wheelchair clients’ expertise in their own mobility needs.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Persona 2: Andrea -->
+                <div class="persona-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="persona-avatar"><img src="caregiver.png"></div>
+                            <div class="front-title">Andrea</div>
+                            <div class="front-role">The Navigator<br>Family Caregiver</div>
+                            <div class="flip-hint">Hover to reveal →</div>
+                        </div>
+                        <div class="card-back">
+                            <div class="back-header">
+                                <div class="persona-title">"It's time we reshape the system to work in the real world."</div>
+                                <div class="persona-role">Andrea, The Navigator</div>
+                            </div>
+                            <div class="back-section">
+                                <div class="back-label motivation">Motivation</div>
+                                <div class="back-content">Enhance Communication: Promote consistent, clear dialogue among caregivers, clinicians, insurers, and suppliers. 
+                                    <br><br>Streamline Processes: Advocate for a simplified, transparent wheelchair procurement system that minimizes delays and reduces complexity.</div>
+                            </div>
+                            <div class="back-section">
+                                <div class="back-label painpoints">Pain Points</div>
+                                <div class="back-content">Overwhelming Complexity: While the process may appear structured on paper, in reality it is disjointed and cumbersome, requiring continuous coordination and follow-up.
+                                <br><br>Persistent Delays: Extended wait times, communication breakdowns, and a fragmented follow-up process hinder timely access to necessary equipment.</div>
+                            </div>
+                            <div class="back-section">
+                                <div class="back-label goals">Assumptions</div>
+                                <div class="back-content">Insurance Companies: “They care more about costs than people.” Believe they prioritize cost-saving over the well-being of families, imposing rigid policies that result in delayed approvals and mounting frustration. 
+                                    <br><br> Suppliers: “They’re overwhelmed and unresponsive.” Assume most suppliers are overwhelmed by demand and poor communication practices.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Persona 3: Dr. Smith-->
+                <div class="persona-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="persona-avatar"><img src ="clinician.png"></div>
+                            <div class="front-title">Dr. David Smith</div>
+                            <div class="front-role">ATP Professional</div>
+                            <div class="flip-hint">Hover to reveal →</div>
+                        </div>
+                        <div class="card-back">
+                            <div class="back-header">
+                                <div class="persona-title">"Patient care is my priority, the system must catch up."</div>
+                                <div class="persona-role">Dr. David Smith, ATP Professional</div>
+                            </div>
+                            <div class="back-section">
+                                <div class="back-label motivation">Motivation</div>
+                                <div class="back-content">Personalized care: Deliver personalized, high-quality care that meets both current and future patient needs.
+                                    <br><br>
+                                    Leverage Technology: Streamline administrative tasks to minimize burnout and reduce delays.
+                                    <br><br>
+                                    Wheelchair Client Self-Advocacy: Empowering patients to speak up for their needs and preferences.</div>
+                            </div>
+                            <div class="back-section">
+                                <div class="back-label painpoints">Pain Points</div>
+                                <div class="back-content">Documentation Burden: Excessive paperwork diverts time from patient care.
+                                    <br><br>
+                                    Justification Hurdles: Time-consuming processes to justify medical necessity under strict insurance regulations.
+                                    <br><br>
+                                    Lack of Client Involvement: Some wheelchair clients are disengaged, leading to misaligned expectations, delays, and difficulty tailoring equipment to individual needs.</div>
+                            </div>
+                            <div class="back-section">
+                                <div class="back-label goals">Assumptions</div>
+                                <div class="back-content">Insurers: “Cost over care.”
+                                    Assume that insurers prioritize financial savings over patient outcomes.
+                                    <br><br>
+                                    Caregivers: “Need guidance.”
+                                    Believes that most require more support in navigating healthcare complexities.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Persona 4: Robert -->
+                <div class="persona-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="persona-avatar"><img src="insurer.png"></div>
+                            <div class="front-title">Robert</div>
+                            <div class="front-role">Insurance Reviewer</div>
+                            <div class="flip-hint">Hover to reveal →</div>
+                        </div>
+                        <div class="card-back">
+                            <div class="back-header">
+                                <div class="persona-title">"Precision in policy, flexibility in practice."</div>
+                                <div class="persona-role">Insurance Case Reviewer</div>
+                            </div>
+                            <div class="back-section">
+                                <div class="back-label motivation">Motivation</div>
+                                <div class="back-content">Transparent Methodologies: Develop clear, consistent payment rules that cover 99% of cases.
+                                <br><br>
+                                Minimize Exceptions: Reduce reliance on one-off miscellaneous codes by setting robust guidelines.</div>
+                            </div>
+                            <div class="back-section">
+                                <div class="back-label painpoints">Pain Points</div>
+                                <div class="back-content">Cost vs. Care Dilemma: Struggling to balance strict cost controls with the need to accommodate medically necessary exceptions. 
+                                <br><br>
+                                Policy Loopholes: Provider workarounds prompt continual clarification and revision of insurance guidelines.</div>
+                            </div>
+                            <div class="back-section">
+                                <div class="back-label goals">Assumptions</div>
+                                <div class="back-content">Suppliers: “They often look for loopholes, expecting exceptions even when guidelines are clear.” 
+                                Believe they often look for loopholes, expecting exceptions even when guidelines are clear.
+                                <br><br>
+                                Clinicians: “They focus on patient needs, sometimes overlooking the constraints of policy and cost.” 
+                                Assume their patient-first mindset, though vital, can create tension when it conflicts with budgetary limits.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Persona 5: Jordan -->
+                <div class="persona-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="persona-avatar"><img src="supplier.png"></div>
+                            <div class="front-title">Jordan</div>
+                            <div class="front-role">Supplier</div>
+                            <div class="flip-hint">Hover to reveal →</div>
+                        </div>
+                        <div class="card-back">
+                            <div class="back-header">
+                                <div class="persona-title">"The system is broken. If we don’t fight to fix it, who will?"</div>
+                                <div class="persona-role">Jordan, DME Supplier Representative</div>
+                            </div>
+                            <div class="back-section">
+                                <div class="back-label motivation">Motivation</div>
+                                <div class="back-content">Enhance Efficiency: Leverage technology to reduce repair backlogs.
+                                <br><br>
+                                Align Stakeholders: Bridge communication gaps among users, clinicians, and suppliers.
+                                <br><br>
+                                Streamline Policy: Advocate for reforms that minimize insurance-related delays.</div>
+                            </div>
+                            <div class="back-section">
+                                <div class="back-label painpoints">Pain Points</div>
+                                <div class="back-content">Insurance Denials: Constant prior authorizations and AI-driven denials stall service.
+                                <br><br>
+                                Regulatory Shackles: Policies limit supplier involvement in clinical assessments.
+                                <br><br>
+                                Resource Strain: High demand and limited staffing create overwhelming backlogs.</div>
+                            </div>
+                            <div class="back-section">
+                                <div class="back-label goals">Assumptions</div>
+                                <div class="back-content">Insurance Companies: “Disconnected from daily struggles.”
+                                Expect clients to blame suppliers for delays caused by insurance restrictions.
+                                <br><br>
+                                Clinicians: “Frustrated but often uninformed.”
+                                Assume most have never dealt with the realities of wheelchair procurement.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Persona 6: Brandon -->
+                <div class="persona-card">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="persona-avatar"><img src="manufacturer.png"></div>
+                            <div class="front-title">Brandon</div>
+                            <div class="front-role">Manufacturer</div>
+                            <div class="flip-hint">Hover to reveal →</div>
+                        </div>
+                        <div class="card-back">
+                            <div class="back-header">
+                                <div class="persona-title">"Innovation is meaningless if users can’t access it."</div>
+                                <div class="persona-role">Manufacturer</div>
+                            </div>
+                            <div class="back-section">
+                                <div class="back-label motivation">Motivation</div>
+                                <div class="back-content">Disrupt the Industry: Push for policy changes that accelerate product approvals.
+                                <br><br>
+                                Leverage Technology: Develop smarter, AI-driven solutions to streamline repairs.
+                                <br><br>
+                                Improve Access & Accountability: Ensure users get the right equipment faster, without regulatory dead ends.</div>
+                            </div>
+                            <div class="back-section">
+                                <div class="back-label painpoints">Pain Points</div>
+                                <div class="back-content">Regulatory Roadblocks: Excessive red tape delays innovation and product distribution.
+                                <br><br>
+                                Fragmented System: Lack of collaboration among stakeholders hinders efficiency.
+                                <br><br>
+                                Repair Inefficiencies: Forced reliance on third parties slows down service.</div>
+                            </div>
+                            <div class="back-section">
+                                <div class="back-label goals">Assumptions</div>
+                                <div class="back-content">Suppliers: “Overwhelmed and under-resourced.”
+                                Believe they would benefit from direct manufacturer-to-user shipping models.
+                                <br><br>
+                                Clinicians: “Helpful, but powerless.”
+                                Assume most want to improve user outcomes but are bound by restrictive policies.</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2690,6 +3240,34 @@
         lightbox.addEventListener('click', (e) => {
             if (e.target === lightbox) {
                 closeLightbox();
+            }
+        });
+
+        // Horizontal scroll navigation
+        const scrollContainer = document.getElementById('personasScroll');
+        const scrollLeftBtn = document.getElementById('scrollLeft');
+        const scrollRightBtn = document.getElementById('scrollRight');
+
+        scrollLeftBtn.addEventListener('click', () => {
+            scrollContainer.scrollBy({
+                left: -350,
+                behavior: 'smooth'
+            });
+        });
+
+        scrollRightBtn.addEventListener('click', () => {
+            scrollContainer.scrollBy({
+                left: 350,
+                behavior: 'smooth'
+            });
+        });
+
+        // Optional: Keyboard navigation
+        scrollContainer.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                scrollContainer.scrollBy({ left: -350, behavior: 'smooth' });
+            } else if (e.key === 'ArrowRight') {
+                scrollContainer.scrollBy({ left: 350, behavior: 'smooth' });
             }
         });
 
