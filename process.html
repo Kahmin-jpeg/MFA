@@ -24,6 +24,7 @@
 
         html {
             scroll-behavior: smooth;
+            overflow-x: hidden; /* ADD THIS */
         }
 
         body {
@@ -32,6 +33,7 @@
             color: var(--text-dark);
             background: white;
             overflow-x: hidden;
+            cursor: url('./cusor@3x100.png') 4 4, auto; /*cursor it here lol!*/
         }
 
         /* Loading Screen */
@@ -1514,6 +1516,114 @@
             background: #f0f0f0;
         }
 
+        .activity-block {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .activity-block img {
+            width: 180px;
+            height: auto;
+            border-radius: 12px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .activity-text h4 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Assembly Process */
+        .assembly-section {
+            margin: 4rem 0;
+        }
+
+        .assembly-header {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .assembly-flow {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            position: relative;
+        }
+
+        .assembly-step {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .step-img {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .step-img img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .step-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .step-description {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .arrow-connector {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .arrow-connector {
+                display: block;
+                position: absolute;
+                top: 50%;
+                right: -1.5rem;
+                transform: translateY(-50%);
+                color: var(--accent);
+                font-size: 1.5rem;
+                opacity: 0.3;
+            }
+
+            .assembly-step:last-child .arrow-connector {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .activity-block {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+        }
+
+            .activity-block img {
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .nav-menu {
@@ -1757,12 +1867,12 @@
                 <div class="process-card">
                     <div class="process-number">1</div>
                     <h3 class="process-title">Framing the Inquiry</h3>
-                    <p class="process-desc">Introduction, Background: Policy Constraints and Systemic Gaps, Research Question</p>
+                    <p class="process-desc">Introduction, Background: Policy Constraints and Systemic Gaps, Research Question, Literature Review</p>
                 </div>
                 <div class="process-card">
                     <div class="process-number">2</div>
                     <h3 class="process-title">User Research</h3>
-                    <p class="process-desc">Literature Review, Pilot Tests, Stakeholder Engagement, Co-Design Activities</p>
+                    <p class="process-desc">Pilot Tests, Stakeholder Engagement, Co-Design Activities</p>
                 </div>
                 <div class="process-card">
                     <div class="process-number">3</div>
@@ -1896,7 +2006,7 @@
                 <div class="phase-number">02</div>
                 <div class="phase-title-block">
                     <h2>User Research</h2>
-                    <p class="phase-subtitle">Literature Review, Pilot Tests, and Co-Design Activities</p>
+                    <p class="phase-subtitle">Pilot Tests, and Co-Design Activities</p>
                 </div>
             </div>
 
@@ -1995,18 +2105,36 @@
             </div>
 
             <div class="interactive-card" style="margin-top: 2rem;">
-                <h3>Co-Design Activities</h3>
-                
-                <h4 style="color: var(--accent); margin-bottom: 1rem;">Pre-Workshop Preparation</h4>
+            <h3>Co-Design Activities</h3>
+
+            <!-- Pre-Workshop Preparation -->
+            <div class="activity-block">
+                <img src="cdw-homework.png" alt="Pre-Workshop Preparation">
+                <div class="activity-text">
+                <h4>Pre-Workshop Preparation</h4>
                 <p>Before each session, participants received preparatory materials visualizing the current Rehabilitation Engineering and Assistive Technology Society of North America (RESNA) wheelchair service delivery framework from a clinician's perspective. These materials provided a shared reference point and foundational context for subsequent discussions.</p>
+                </div>
+            </div>
 
-                <h4 style="color: var(--accent); margin-top: 2rem; margin-bottom: 1rem;">Individual Experience Mapping</h4>
+            <!-- Individual Experience Mapping -->
+            <div class="activity-block">
+                <img src="cdw-timeline.png" alt="Individual Experience Mapping">
+                <div class="activity-text">
+                <h4>Individual Experience Mapping</h4>
                 <p>During the workshop, participants engaged in a visual mapping exercise to reflect on their personal journey within the wheelchair service delivery system. Using a temporal axis, individuals identified positive experiences above the line and challenges below the line. This activity facilitated self-guided storytelling while anchoring narratives in specific points of interaction.</p>
+                </div>
+            </div>
 
-                <h4 style="color: var(--accent); margin-top: 2rem; margin-bottom: 1rem;">Future Visioning and Speculative Scenarios</h4>
+            <!-- Future Visioning -->
+            <div class="activity-block">
+                <img src="cdw-vision.png" alt="Future Visioning and Speculative Scenarios">
+                <div class="activity-text">
+                <h4>Future Visioning and Speculative Scenarios</h4>
                 <p>Participants transitioned from present experience to speculation. Working individually or in small groups, they co-created speculative scenarios, either utopian or dystopian, to reimagine the future of wheelchair service delivery. A creative canvas (Miro board) supported the construction of visual narratives.</p>
-                
-                <a class="link-arrow" id="openFutureMaps">View all future maps here</a>
+                </div>
+            </div>
+
+            <a class="link-arrow" id="openFutureMaps">View all future maps here</a>
             </div>
         </div>
     </section>
@@ -2026,14 +2154,32 @@
                 <h3>Analysis Approach</h3>
                 <p>The analysis focused on making sense of data gathered through co-design workshops, stakeholder interviews, and visual mapping exercises that examined the complexities of the wheelchair service delivery process. Emphasis was placed on capturing the lived experiences.</p>
 
-                <h4 style="margin-top: 2rem; color: var(--accent);">Transcript Review</h4>
+                  <!-- Transcript Review -->
+            <div class="activity-block">
+                <img src="cdw-trans.png" alt="Transcript Review">
+                <div class="activity-text">
+                <h4>Transcript Review</h4>
                 <p>Audio-recorded co-design sessions and interviews were transcribed and reviewed alongside participant-generated artifacts such as annotated maps, visual timelines, and storytelling prompts. Particular attention was paid to emotionally charged language, tensions in service interactions, and moments where participants described agency, resistance, or systemic breakdowns.</p>
+                </div>
+            </div>
 
-                <h4 style="margin-top: 2rem; color: var(--accent);">Affinity Mapping</h4>
+            <!-- Affinity Mapping -->
+            <div class="activity-block">
+                <img src="cdw-affinity.PNG" alt="Affinity Mapping">
+                <div class="activity-text">
+                <h4>Affinity Mapping</h4>
                 <p>Using Miro, I clustered key quotes, reflections, and observational notes across stakeholder types. This allowed for the identification of both overlapping and diverging themes, such as breakdown points in authorization, repair delays, or emotional labor within caregiver roles. Color-coded tags were used to distinguish between systemic, relational, and procedural insights.</p>
+                </div>
+            </div>
 
-                <h4 style="margin-top: 2rem; color: var(--accent);">Thematic Coding and Synthesis</h4>
+            <!-- Thematic Coding and Synthesis -->
+            <div class="activity-block">
+                <img src="cdw-the.PNG" alt="Thematic Coding and Synthesis">
+                <div class="activity-text">
+                <h4>Thematic Coding and Synthesis</h4>
                 <p>Insights were synthesized through iterative coding rounds to highlight recurring patterns in participant narratives. Codes were organized around phases of the wheelchair acquisition journey (e.g., prescription, funding approval, delivery, maintenance), as well as cross-cutting themes such as autonomy, opacity, and trust.</p>
+                </div>
+            </div>
             </div>
 
             <div class="interactive-card" style="margin-top: 2rem;">
@@ -2074,8 +2220,41 @@
 
                 <p style="margin-top: 1.5rem;">An initial visual system mapping intervention was developed to address these relational gaps. The intervention aimed not only to make complexity visible but also to support participatory reflection across stakeholder groups. This composite model was visualized using a two-dimensional journey framework: the vertical axis represented stakeholder roles, while the horizontal axis represented time.</p>
 
-                <h4 style="margin-top: 2rem; color: var(--accent);">How was this assembled?</h4>
-                <p>To synthesize findings across stakeholder experiences, we developed a visual system mapping tool that emerged from participant-created experience maps and lived experiences through the co-design sessions. This intervention consisted the results of analyzed diagrams and annotated maps built directly from the participants' workshop inputs.</p>
+                <!-- <h4 style="margin-top: 2rem; color: var(--accent);">How was this assembled?</h4>
+                <p>To synthesize findings across stakeholder experiences, we developed a visual system mapping tool that emerged from participant-created experience maps and lived experiences through the co-design sessions. This intervention consisted the results of analyzed diagrams and annotated maps built directly from the participants' workshop inputs.</p> -->
+                 <div class="assembly-section">
+            <h4 style="margin-top: 1rem; margin-bottom: 1.5rem; color: var(--accent);">How Was This Assembled?</h4>
+            
+            <div class="assembly-flow">
+                <div class="assembly-step">
+                    <h4 class="step-title">Initial Prototype</h4>
+                    <div class="step-img"><img src="Map1.jpg"></div>
+                    <p class="step-description">Created composite journey visualization</p>
+                    <span class="arrow-connector">→</span>
+                </div>
+
+                <div class="assembly-step">
+                    <h4 class="step-title">Data Analysis</h4>
+                    <div class="step-img"><img src="Data Analysis.PNG"></div>
+                    <p class="step-description">Analyzed diagrams and annotated maps from workshop inputs</p>
+                                        <span class="arrow-connector">→</span>
+                </div>
+
+                <div class="assembly-step">
+                    <h4 class="step-title">Evaluation</h4>
+                    <div class="step-img"><img src="evaluation-1.png"></div>
+                    <p class="step-description">Gathered feedback from all stakeholder groups</p>
+                    <span class="arrow-connector">→</span>
+                </div>
+
+                <div class="assembly-step">
+                    <h4 class="step-title">Iteration</h4>
+                    <div class="step-img"><img src="visualization-2.png"></div>
+                    <p class="step-description">Refined based on evaluation survey</p>
+                    </div>
+            </div>
+        </div>
+
 
                 <h4 style="margin-top: 2rem; color: var(--accent);">Based on user feedback, the visualization was reconceptualized to:</h4>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
@@ -2090,6 +2269,28 @@
                     </div>
                     <div style="padding: 1.5rem; background: white; border-radius: 15px; border-left: 4px solid var(--accent);">
                         <p>Show how regulatory feedback loops delay or derail progress</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SOLUTION OVERVIEW WITH VISUAL -->
+            <div class="interactive-card" style="margin-top: 2rem;">
+                <h3>The Solution: An Interactive Visual System Model</h3>
+                
+                <!-- Add visual preview here -->
+                <div style="margin: 2rem 0; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.15);">
+                    <img src="visualization-2.png" 
+                        alt="Interactive System Model Preview" 
+                        style="width: 100%; height: auto; display: block; cursor: pointer;"
+                        onclick="window.open('https://kahmin-jpeg.github.io/MFA/', '_blank')">
+                    <div style="background: linear-gradient(135deg, #1e293b 0%, #000000 100%); padding: 1.5rem; text-align: center;">
+                        <a href="https://kahmin-jpeg.github.io/MFA/" 
+                        target="_blank" 
+                        class="btn btn-primary" 
+                        style="background: white; color: var(--primary); display: inline-flex; align-items: center; gap: 0.5rem;">
+                            <span>Explore Interactive Demo</span>
+                            <span>→</span>
+                        </a>
                     </div>
                 </div>
             </div>
