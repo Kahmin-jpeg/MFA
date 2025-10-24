@@ -40,7 +40,7 @@
             color: var(--text-primary);
             overflow-x: hidden;
             line-height: 1.6;
-            cursor: url('./cusor@3x100.png') 4 4, auto; /*cursor it here lol!*/
+            cursor: url('./cusor@3x100.png') 4 4, auto;
         }
 
         /* Hero Section with Gradient */
@@ -1660,37 +1660,49 @@
         #scrollspy {
             position: fixed;
             top: 50%;
-            right: 20px;
+            right: 0.5rem;
             transform: translateY(-50%);
             z-index: 999;
-            transition: all 0.3s ease;
+            padding: 0.1rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
         }
 
         #scrollspy ul { 
-            list-style: none; 
-            padding: 0; 
-            margin: 0; 
+            list-style: none;
+            padding: 0;
+
         }
 
         #scrollspy li { 
-            margin: 10px 0; 
+            margin: 1rem 0;
         }
 
         #scrollspy a {
-            color: var(--text-muted);
+            display: block;
+            color: var(--text-light);
             text-decoration: none;
-            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.3rem 1rem;
+            border-left: 3px solid var(--border-color);
             transition: all 0.3s ease;
+
         }
 
         #scrollspy a:hover {
-            color: var(--accent-primary);
+            color: var(--secondary);
+            border-left-color: var(--secondary);
+            background: rgba(78, 205, 196, 0.1);
         }
 
         #scrollspy a.active {
-            color: var(--accent-primary);
-            border-left: 3px solid var(--accent-primary);
-            padding-left: 8px;
+            color: var(--accent);
+            border-left-color: var(--accent);
+            font-weight: 600;
+            background: rgba(255, 107, 107, 0.1);
+
         }
 
         #scrollspy.hidden {
@@ -2040,7 +2052,7 @@
                         <span class="highlight-tooltip">
                             documents clinical justifications
                         <span class="tooltip-content">
-                            <img src="example.png" alt="Clinical measurements"/>
+                            <img src="powerwheelchairmeasurements.webp" alt="Clinical measurements"/>
                                 A clinical justification is a written explanation by a healthcare professional describing why a specific wheelchair and components are medically necessary for the client's daily function and quality of life.</span>
                             </span>
                         </span>
