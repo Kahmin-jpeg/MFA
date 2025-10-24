@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Thesis Title | Academic Research</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0A0E27;
+            --accent: #0011ff;
+            --secondary: #00ffee;
+            --tertiary: #FFE66D;
+            --text-dark: #1a1a2e;
+            --text-light: #686D76;
+            --bg-light: #FAFAFA;
+            --bg-gradient: #1e293b;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.8;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: 280px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--bg-gradient) 100%);
+            padding: 2rem 1.5rem;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        nav .logo {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(0, 255, 238, 0.3);
+        }
+
+        nav .logo h1 {
+            font-size: 1.3rem;
+            color: var(--bg-light);
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+            line-height: 1.3;
+        }
+
+        nav .logo p {
+            font-size: 0.85rem;
+            color: var(--secondary);
+            opacity: 0.8;
+        }
+
+        nav ul {
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-bottom: 0.3rem;
+        }
+
+        nav a {
+            color: rgba(250, 250, 250, 0.7);
+            text-decoration: none;
+            font-size: 0.95rem;
+            display: block;
+            padding: 0.7rem 1rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        nav a.sub-chapter {
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem 0.5rem 2rem;
+            color: rgba(250, 250, 250, 0.6);
+        }
+
+        nav a:hover {
+            background-color: rgba(0, 255, 238, 0.1);
+            color: var(--secondary);
+            border-left-color: var(--secondary);
+            transform: translateX(5px);
+        }
+
+        nav a.active {
+            background-color: rgba(0, 17, 255, 0.2);
+            color: var(--bg-light);
+            border-left-color: var(--accent);
+        }
+
+        nav a.sub-chapter.active {
+            background-color: rgba(0, 255, 238, 0.15);
+            border-left-color: var(--secondary);
+        }
+
+        /* Main Content Area */
+        main {
+            margin-left: 280px;
+            flex: 1;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: var(--bg-light);
+            padding: 5rem 4rem 4rem 4rem;
+            border-bottom: 4px solid var(--tertiary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 255, 238, 0.15) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -5%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 230, 109, 0.1) 0%, transparent 70%);
+            animation: float 25s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(135deg, #ffffff 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 40px rgba(0, 255, 238, 0.3);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+            font-weight: 300;
+        }
+
+        .content-wrapper {
+            max-width: 900px;
+            padding: 3rem 4rem;
+        }
+
+        section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 2rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 0.5rem;
+            font-weight: 400;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            text-align: justify;
+            hyphens: auto;
+            color: var(--text-dark);
+        }
+
+        .abstract {
+            background: linear-gradient(135deg, rgba(0, 17, 255, 0.05) 0%, rgba(0, 255, 238, 0.05) 100%);
+            padding: 2rem;
+            border-left: 5px solid var(--accent);
+            margin: 2rem 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .abstract p {
+            font-style: italic;
+            color: var(--text-dark);
+        }
+
+        blockquote {
+            margin: 2rem 0;
+            padding: 1.5rem 2rem;
+            background: linear-gradient(135deg, rgba(255, 230, 109, 0.1) 0%, rgba(0, 255, 238, 0.1) 100%);
+            border-left: 5px solid var(--secondary);
+            font-style: italic;
+            color: var(--text-dark);
+            border-radius: 4px;
+        }
+
+        .citation {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        figure {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        figure img {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid var(--accent);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 17, 255, 0.1);
+        }
+
+        figcaption {
+            margin-top: 0.8rem;
+            font-size: 0.9rem;
+            font-style: italic;
+            color: var(--text-light);
+        }
+
+        .footnote {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            line-height: 1.6;
+            padding: 1rem;
+            background-color: rgba(250, 250, 250, 0.5);
+            border-radius: 4px;
+            margin-top: 1rem;
+        }
+
+        sup {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: underline;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--secondary);
+        }
+
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1.2rem;
+            color: var(--text-dark);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--bg-gradient) 100%);
+            color: var(--bg-light);
+            padding: 2rem 4rem;
+            text-align: center;
+            border-top: 3px solid var(--tertiary);
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-light);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 968px) {
+            nav {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 1.5rem;
+            }
+
+            nav .logo h1 {
+                font-size: 1.5rem;
+            }
+
+            nav ul {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            nav ul li {
+                margin-bottom: 0;
+            }
+
+            nav a {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            main {
+                margin-left: 0;
+            }
+
+            header {
+                padding: 2rem 1.5rem;
+            }
+
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .content-wrapper {
+                padding: 2rem 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            footer {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <h1>Lorem Ipsum Dolor Sit</h1>
+            <p>By Lorem Ipsum | 2024</p>
+        </div>
+        <ul>
+            <li><a href="#abstract" class="active">Abstract</a></li>
+            <li><a href="#introduction">1. Lorem Ipsum</a></li>
+            <li><a href="#intro-background" class="sub-chapter">1.1 Lorem Ipsum</a></li>
+            <li><a href="#intro-questions" class="sub-chapter">1.2 Lorem Ipsum</a></li>
+            <li><a href="#literature">2. Lorem Ipsum</a></li>
+            <li><a href="#lit-framework" class="sub-chapter">2.1 Lorem Ipsum</a></li>
+            <li><a href="#lit-research" class="sub-chapter">2.2 Lorem Ipsum</a></li>
+            <li><a href="#methodology">3. Lorem Ipsum</a></li>
+            <li><a href="#method-design" class="sub-chapter">3.1 Lorem Ipsum</a></li>
+            <li><a href="#method-collection" class="sub-chapter">3.2 Lorem Ipsum</a></li>
+            <li><a href="#method-analysis" class="sub-chapter">3.3 Lorem Ipsum</a></li>
+            <li><a href="#results">4. Lorem Ipsum</a></li>
+            <li><a href="#results-findings" class="sub-chapter">4.1 Lorem Ipsum</a></li>
+            <li><a href="#results-patterns" class="sub-chapter">4.2 Lorem Ipsum</a></li>
+            <li><a href="#discussion">5. Lorem Ipsum</a></li>
+            <li><a href="#disc-interpretation" class="sub-chapter">5.1 Lorem Ipsum</a></li>
+            <li><a href="#disc-implications" class="sub-chapter">5.2 Lorem Ipsum</a></li>
+            <li><a href="#disc-limitations" class="sub-chapter">5.3 Lorem Ipsum</a></li>
+            <li><a href="#conclusion">6. Lorem Ipsum</a></li>
+            <li><a href="#references">6.1 Lorem Ipsum</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <header>
+            <h1>Lorem Ipsum Dolor Sit Amet Consectetur</h1>
+            <p style="color: #FAFAFA;">Adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p1>
+            <p style="margin-top: 1rem; font-size: 0.95rem; opacity: 0.9; color: #FAFAFA;">
+                Master's Thesis | Universitas Lorem | Department of Ipsum Studies | 2024
+            </p>
+        </header>
+
+        <div class="content-wrapper">
+            <section id="abstract">
+                <h2>Abstract</h2>
+                <div class="abstract">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+                </div>
+            </section>
+
+            <section id="introduction">
+                <h2>1. Lorem ipsum</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<sup>1</sup> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                </p>
+
+                <h3>1.1 Lorem ipsum</h3>
+                <p id="intro-background">
+                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.
+                </p>
+
+                <h3>1.2 Lorem ipsums</h3>
+                <p id="intro-questions">
+                    Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam:
+                </p>
+                <blockquote>
+                    Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur?
+                </blockquote>
+                <p>
+                    Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet:
+                </p>
+                <ul>
+                    <li>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium?</li>
+                    <li>Et harum quidem rerum facilis est et expedita distinctio nam libero tempore?</li>
+                    <li>Itaque earum rerum hic tenetur a sapiente delectus ut aut reiciendis voluptatibus?</li>
+                </ul>
+
+                <div class="footnote">
+                    <sup>1</sup> Lorem, I. (2023). <em>Dolor Sit Amet Consectetur</em>. Adipiscing Publisher.
+                </div>
+            </section>
+
+            <section id="literature">
+                <h2>2. Lorem ipsum</h2>
+                <p>
+                    Lorem ipsum
+                </p>
+
+                <h3>2.1 Lorem ipsum</h3>
+                <p id="lit-framework">
+                    Lorem ipsum</p>
+
+                <h3>2.2 Lorem ipsum</h3>
+                <p id="lit-research">
+                    Lorem ipsum</p>
+                <p>
+                    Lorem ipsum</p>
+
+                <div class="footnote">
+                    <sup>2</sup> Lorem ipsum<em>Lorem ipsum</em>Lorem ipsum
+                </div>
+            </section>
+
+            <section id="methodology">
+                <h2>3. Lorem ipsum</h2>
+                <p>
+                    Lorem ipsum</p>
+
+                <h3>3.1 Lorem ipsum</h3>
+                <p id="method-design">
+                    Lorem ipsum</p>
+
+                <h3>3.2 Lorem ipsum</h3>
+                <p id="method-collection">
+                    Lorem ipsum</p>
+
+                <figure>
+                    <div style="background: linear-gradient(135deg, rgba(0, 17, 255, 0.05) 0%, rgba(0, 255, 238, 0.05) 100%); padding: 3rem; border: 2px solid var(--accent); border-radius: 8px;">
+                        <p style="color: var(--text-light); font-style: italic;">[Placeholder for methodology diagram or flowchart]</p>
+                    </div>
+                    <figcaption>Figure 1: Lorem ipsum</figcaption>
+                </figure>
+
+                <h3>3.3 Lorem ipsum</h3>
+                <p id="method-analysis">
+                    Lorem ipsum</p>
+
+                <div class="footnote">
+                    <sup>3</sup> lorem ipsum
+                </div>
+            </section>
+
+            <section id="results">
+                <h2>4. Lorem ipsum</h2>
+                <p>
+                   Lorem ipsum</p>
+
+                <h3>4.1 Lorem ipsum</h3>
+                <p id="results-findings">
+                    Lorem ipsum</p>
+
+                <blockquote>
+                    Lorem ipsum<div style="text-align: right; margin-top: 0.5rem; font-size: 0.9rem; font-style: normal;">—Lorem ipsum</div>
+                </blockquote>
+
+                <h3>4.2 Lorem ipsum</h3>
+                <p id="results-patterns">
+                   Lorem ipsum</p>
+
+                <figure>
+                    <div style="background: linear-gradient(135deg, rgba(255, 230, 109, 0.1) 0%, rgba(0, 255, 238, 0.1) 100%); padding: 3rem; border: 2px solid var(--secondary); border-radius: 8px;">
+                        <p style="color: var(--text-light); font-style: italic;">[Placeholder for results visualization, chart, or graph]</p>
+                    </div>
+                    <figcaption>Figure 2: Lorem ipsum</figcaption>
+                </figure>
+            </section>
+
+            <section id="discussion">
+                <h2>5. Lorem ipsum</h2>
+                <p>
+                   Lorem ipsum
+                </p>
+
+                <h3>5.1 Lorem ipsum</h3>
+                <p id="disc-interpretation">
+                    Lorem ipsum</p>
+
+                <h3>5.2 Lorem ipsum</h3>
+                <p id="disc-implications">
+                    Lorem ipsum</p>
+
+                <h3>5.3 Limitations</h3>
+                <p id="disc-limitations">
+                    Lorem ipsum</p>
+            </section>
+
+            <section id="conclusion">
+                <h2>6. Conclusion</h2>
+                <p>
+                    Lorem ipsum</p>
+                <p>
+                    Lorem ipsum</p>
+                <p>
+                    Lorem ipsum</p>
+            </section>
+
+            <section id="references">
+                <h2>References</h2>
+                <div class="citation" style="line-height: 2;">
+                    <p>Lorem ipsum<em>Lorem ipsum</em>Lorem ipsum</p>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <p1>&copy; Lorem Ipsum</p>
+            <p1 style="margin-top: 0.5rem; font-size: 0.9rem;">Lorem ipsum</p>
+        </footer>
+    </main>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('nav a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Smooth scroll to section
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+
+        // Update active nav item on scroll
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
