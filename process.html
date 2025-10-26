@@ -1083,6 +1083,35 @@
             margin-bottom: 1rem;
         }
 
+        /* Expandable text functionality */
+        .lit-card-text.collapsed {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .expand-toggle {
+            color: var(--primary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-block;
+            margin-bottom: 1rem;
+            transition: color 0.2s ease;
+        }
+
+        .expand-toggle:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        .card-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
         /* Deliverables Box */
         .deliverables-box {
             background: linear-gradient(135deg, #000000 0%, #180569 100%);
@@ -2252,7 +2281,9 @@
                         <p class="lit-card-subtitle">Key Takeaway</p>
                     </div>
                     <div class="lit-card-body">
-                        <p class="lit-card-text">This paper bridges systems theory and design thinking to form the basis of systemic design, an approach that integrates analytical systems understanding with the creative, human-centered orientation of design. By synthesizing insights from soft systems, complexity science, and design practice, he identifies principles such as holism, stakeholder participation, contextual framing, and feedback loops. These principles allow designers to work within large-scale, interdependent networks like healthcare, policy, or technology systems. The paper argues that true change in complex social systems occurs when design not only visualizes complexity but also mobilizes diverse actors toward coordinated, adaptive action, making it especially relevant for rehabilitation and policy systems.</p>
+                        <p class="lit-card-text collapsed">This paper bridges systems theory and design thinking to form the basis of systemic design, an approach that integrates analytical systems understanding with the creative, human-centered orientation of design. By synthesizing insights from soft systems, complexity science, and design practice, he identifies principles such as holism, stakeholder participation, contextual framing, and feedback loops. These principles allow designers to work within large-scale, interdependent networks like healthcare, policy, or technology systems. The paper argues that true change in complex social systems occurs when design not only visualizes complexity but also mobilizes diverse actors toward coordinated, adaptive action, making it especially relevant for rehabilitation and policy systems.</p>
+                        <span class="expand-toggle">+ Expand to view more</span>
+                        <br>
                         <a href="#" class="link-arrow">Read full paper here</a>
                     </div>
                 </div>
@@ -2264,7 +2295,9 @@ Disabilities: A Comparative Analysis</h4>
                         <p class="lit-card-subtitle">Key Takeaway</p>
                     </div>
                     <div class="lit-card-body">
-                        <p class="lit-card-text">This comparative study investigates systemic barriers faced by people with disabilities within Medicaid-funded healthcare. Findings reveal persistent inequities caused by bureaucratic complexity, inaccessible facilities, provider bias, and lack of disability training, despite formal policy protections under the ADA. The paper argues that policy alone cannot ensure accessibility without structural and cultural reform within healthcare delivery. It underscores that accessible healthcare requires systemic coordination across policy, provider education, and user advocacy, reframing disability access as a design and governance problem rooted in fragmentation and misaligned incentives.</p>
+                        <p class="lit-card-text collapsed">This comparative study investigates systemic barriers faced by people with disabilities within Medicaid-funded healthcare. Findings reveal persistent inequities caused by bureaucratic complexity, inaccessible facilities, provider bias, and lack of disability training, despite formal policy protections under the ADA. The paper argues that policy alone cannot ensure accessibility without structural and cultural reform within healthcare delivery. It underscores that accessible healthcare requires systemic coordination across policy, provider education, and user advocacy, reframing disability access as a design and governance problem rooted in fragmentation and misaligned incentives.</p>
+                        <span class="expand-toggle">+ Expand to view more</span>
+                        <br>
                         <a href="#" class="link-arrow">Read full paper here</a>
                     </div>
                 </div>
@@ -2276,7 +2309,9 @@ Burden: Report-out and Call for Action</h4>
                         <p class="lit-card-subtitle">Key Takeaway</p>
                     </div>
                     <div class="lit-card-body">
-                        <p class="lit-card-text">The 25x5 Symposium convened clinicians, technologists, and policymakers to reduce documentation burden by 75% through workflow redesign, automation, and policy reform. The resulting 82 action items demonstrate that administrative fatigue is a systemic design issue rather than a purely technical one. This case emphasizes the need to rebalance bureaucratic processes with care quality and empathy-driven practice.</p>
+                        <p class="lit-card-text collapsed">The 25x5 Symposium convened clinicians, technologists, and policymakers to reduce documentation burden by 75% through workflow redesign, automation, and policy reform. The resulting 82 action items demonstrate that administrative fatigue is a systemic design issue rather than a purely technical one. This case emphasizes the need to rebalance bureaucratic processes with care quality and empathy-driven practice.</p>
+                        <span class="expand-toggle">+ Expand to view more</span>
+                        <br>
                         <a href="#" class="link-arrow">Read full paper here</a>
                     </div>
                 </div>
@@ -2287,7 +2322,9 @@ technology: a scoping review</h4>
                         <p class="lit-card-subtitle">Key Takeaway</p>
                     </div>
                     <div class="lit-card-body">
-                        <p class="lit-card-text">This scoping review of Complex Rehabilitation Technology (CRT) identifies fragmentation across policy, funding, and clinical practices in wheelchair service delivery worldwide. Despite existing frameworks, inconsistent implementation and misaligned incentives result in inequitable access and prolonged delays. The review calls for a shift toward proactive, value-based, and user-centered systems that integrate diverse stakeholder perspectives.</p>
+                        <p class="lit-card-text collapsed">This scoping review of Complex Rehabilitation Technology (CRT) identifies fragmentation across policy, funding, and clinical practices in wheelchair service delivery worldwide. Despite existing frameworks, inconsistent implementation and misaligned incentives result in inequitable access and prolonged delays. The review calls for a shift toward proactive, value-based, and user-centered systems that integrate diverse stakeholder perspectives.</p>
+                        <span class="expand-toggle">+ Expand to view more</span>
+                        <br>
                         <a href="#" class="link-arrow">Read full paper here</a>
                     </div>
                 </div>
@@ -2297,9 +2334,11 @@ technology: a scoping review</h4>
                         <p class="lit-card-subtitle">Key Takeaway</p>
                     </div>
                     <div class="lit-card-body">
-                        <p class="lit-card-text">Using a Participatory Action Research (PAR) framework, this study co-developed the Wheelchair Educators’ Package (WEP) to address the global lack of formal wheelchair service training among educators and frontline providers. By engaging a diverse, 32-member international team, including wheelchair users, clinicians, and educators,
+                        <p class="lit-card-text collapsed">Using a Participatory Action Research (PAR) framework, this study co-developed the Wheelchair Educators’ Package (WEP) to address the global lack of formal wheelchair service training among educators and frontline providers. By engaging a diverse, 32-member international team, including wheelchair users, clinicians, and educators,
                             the research demonstrated how co-creation and shared decision-making can build capacity and embed wheelchair-related education into university curricula. The project reframed wheelchair service provision as a social change effort rather than a purely clinical task, emphasizing that empowerment, participation, and collaboration are key to achieving equitable and sustainable rehabilitation education systems.</p>
-                        <a href="#" class="link-arrow">Read full paper here</a>
+                        <span class="expand-toggle">+ Expand to view more</span>
+                        <br>
+                            <a href="#" class="link-arrow">Read full paper here</a>
                     </div>
                 </div>
 
@@ -2310,7 +2349,9 @@ Research and Innovation:A Narrative Review of Current Practices</h4>
                         <p class="lit-card-subtitle">Key Takeaway</p>
                     </div>
                     <div class="lit-card-body">
-                        <p class="lit-card-text">This review of 82 studies (2000–2020) maps how human-centered design (HCD), design thinking (DT), and user-centered design (UCD) have been applied across health research. It reveals that while HCD and DT emphasize empathy and co-creation in early stages of problem framing, UCD often limits users to the role of testers in predefined solutions. Despite increased adoption, the review finds inconsistent reporting standards and limited reflection on power, agency, and inclusion, particularly when working with vulnerable populations. The authors conclude that HCD’s strength lies in its ability to create collaborative, context-sensitive solutions, but only when accompanied by methodological rigor and attention to equity and representation.</p>
+                        <p class="lit-card-text collapsed">This review of 82 studies (2000–2020) maps how human-centered design (HCD), design thinking (DT), and user-centered design (UCD) have been applied across health research. It reveals that while HCD and DT emphasize empathy and co-creation in early stages of problem framing, UCD often limits users to the role of testers in predefined solutions. Despite increased adoption, the review finds inconsistent reporting standards and limited reflection on power, agency, and inclusion, particularly when working with vulnerable populations. The authors conclude that HCD’s strength lies in its ability to create collaborative, context-sensitive solutions, but only when accompanied by methodological rigor and attention to equity and representation.</p>
+                        <span class="expand-toggle">+ Expand to view more</span>
+                        <br>
                         <a href="#" class="link-arrow">Read full paper here</a>
                     </div>
                 </div>
@@ -3341,6 +3382,24 @@ Drawing from participatory, systemic, and speculative design, your project trans
                 }
             });
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+        const expandToggles = document.querySelectorAll('.expand-toggle');
+        
+        expandToggles.forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                const cardText = this.closest('.lit-card-body').querySelector('.lit-card-text');
+                
+                if (cardText.classList.contains('collapsed')) {
+                    cardText.classList.remove('collapsed');
+                    this.textContent = '− Collapse';
+                } else {
+                    cardText.classList.add('collapsed');
+                    this.textContent = '+ Expand to view more';
+                }
+            });
+        });
+    });
 
         // Modal functionality
         const modal = document.getElementById('futureMapsModal');
